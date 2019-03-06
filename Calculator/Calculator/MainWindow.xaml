@@ -1,0 +1,119 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Calculator" Height="360" Width="300" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowState="Normal" Icon="./Resources/icon.ico" FocusManager.FocusedElement="{Binding ElementName=InputTextBox}">
+
+    <Border Padding="5" >
+        <StackPanel>
+            <!-- Numeric pad section -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="0 5 0 0" Grid.Column="0" FontWeight="DemiBold" Text="Numeric pad: "/>
+                <CheckBox x:Name="NumericCheckbox" Checked="NumericCheckbox_Checked" Unchecked="NumericCheckbox_Unchecked" Margin="0 5 0 0" Grid.Column="1"/>
+            </Grid>
+            
+            <!-- Text boxes section-->
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="142*"/>
+                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="70*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Input -->
+                <StackPanel  Grid.Column="0" Margin="0,0,9.8,0" Grid.ColumnSpan="2">
+                    <TextBlock Margin="0 5 0 0" FontWeight="DemiBold" Text="Input: "/>
+                    <TextBox x:Name="InputTextBox" KeyDown="InputTextBox_KeyDown" Height=" 58" IsReadOnly="False" Margin="5 5 0 0" Padding="5" CaretIndex="2"/>
+                </StackPanel>
+
+                <!-- Output -->
+                <StackPanel Grid.Column="2" Margin="0.2,0">
+                    <TextBlock Margin="0 5 0 5" FontWeight="DemiBold" Text="Output: "/>
+                    <TextBox x:Name="OutputTextBox" IsReadOnly="True" Margin="5 0 5 0" Height=" 58" Background="LightGray" Padding="5" TextWrapping="Wrap" Focusable="False"/>
+                </StackPanel>
+
+            </Grid>
+
+            <!-- Number keys section -->
+            <StackPanel x:Name="NumberKeySection" FocusManager.FocusedElement="{Binding ElementName=InputTextBox}" Visibility="Visible" Margin="0 10 0 0">
+
+                <!-- Operations sections -->
+                <Grid Height="30" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="AddButton" Click="AddButton_Click" Margin ="5,0,5.4,0" Grid.Column="0" Content="+" VerticalAlignment="Top" Height="30"/>
+                    <Button x:Name="SubtractButton" Click="SubtractButton_Click" Margin ="5 0 5 0" Grid.Column="1" Content="-"/>
+                    <Button x:Name="MultiplyButton" Click="MultiplyButton_Click" Margin ="5 0 5 0" Grid.Column="2" Content="*"/>
+                    <Button x:Name="DivideButton" Click="DivideButton_Click" Margin ="5 0 5 0" Grid.Column="3" Content="/"/>
+                </Grid>
+
+                <!-- Number keys 7,8,9 -->
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="SevenButton" Click="SevenButton_Click" Margin ="5 10 5 0" Grid.Column="0" Content="7"  VerticalAlignment="Top" Height="30"/>
+                    <Button x:Name="EightButton" Click="EightButton_Click"  Margin ="5 10 5 0" Grid.Column="1" Content="8"/>
+                    <Button x:Name="NineButton" Click="NineButton_Click"  Margin ="5 10 5 0" Grid.Column="2" Content="9"/>
+                </Grid>
+
+                <!-- Number keys 4,5,6 -->
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="FourButton" Click="FourButton_Click" Margin ="5 10 5 0" Grid.Column="0" Content="4"  VerticalAlignment="Top" Height="30"/>
+                    <Button x:Name="FiveButton" Click="FiveButton_Click"  Margin ="5 10 5 0" Grid.Column="1" Content="5"/>
+                    <Button x:Name="SixButton" Click="SixButton_Click" Margin ="5 10 5 0" Grid.Column="2" Content="6"/>
+                </Grid>
+
+                <!-- Number keys 1,2,3 -->
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="OneButton" Click="OneButton_Click"  Margin ="5 10 5 0" Grid.Column="0" Content="1"  VerticalAlignment="Top" Height="30"/>
+                    <Button x:Name="TwoButton" Click="TwoButton_Click" Margin ="5 10 5 0" Grid.Column="1" Content="2"/>
+                    <Button x:Name="ThreeButton" Click="ThreeButton_Click" Margin ="5 10 5 0" Grid.Column="2" Content="3"/>
+                </Grid>
+
+                <!-- 0 and sum -->
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="NullButton" Click="NullButton_Click"  Margin ="5 10 5 0" Grid.Column="0" Content="0"  VerticalAlignment="Top" Height="30"/>
+                    <Button x:Name="DeleteButton" Click="DeleteButton_Click" Margin ="5 10 5 0" Grid.Column="3" Content="DEL"  VerticalAlignment="Top" Height="30" Background="OrangeRed"/>
+                    <Button x:Name="CommaButton" Click="CommaButton_OnClick" Margin="5 10 5 0" Grid.Column="1" Content="," />
+                    <Button x:Name="SumButton" Click="SumButton_Click" Margin="5 10 5 0" Grid.Column="2" Content="=" Background="Yellow"/>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
