@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    class Calculations
+    public class Calculations
     {
-        private string Text { set; get; } //tekst wejsciowy do analizy
+        private string Text { set; get; }
 
         public Calculations(string text)
         {
@@ -68,7 +68,7 @@ namespace WpfApp1
 
             return output;
         }
-        //wyszukiwanie wszystkich operatorow w stringu wejsciowym i dodanie ich do listy
+
         private void FindOperators(ref List<char> list, string input)
         {
             foreach (char c in input)
@@ -80,7 +80,6 @@ namespace WpfApp1
             }
         }
 
-        //wyszukiwanie wszystkich liczb w stringu wejsciowym i dodanie ich do listy
         private void FindNumbers(ref List<double> list, string input)
         {
             string tempS = "";
@@ -104,18 +103,101 @@ namespace WpfApp1
             }
         }
 
+        private void RemoveCountedOperations(ref List<char> lChar)
+        {
+            int num = lChar.Count;
+            for (int i = 0; i < num; i++)
+            {
+                if (lChar[i] == '*' || lChar[i] == '/')
+                {
+                    lChar.RemoveAt(i);
+                    num--;
+                }
+            }
+        }
+
+        private void ConvertNumbersToOppositeInList(ref List<double> lDouble, ref List<char> lChar)
+        {
+            int i = 0;
+
+            foreach (char c in lChar)
+            {
+                if (c == '-')
+                    lDouble[i + 1] = -1 * lDouble[i + 1];
+                i++;
+            }
+        }
+
+        //dla dwoch lub trzech zmiennych
+
+        //public double CalculationOfOperation()
+        //{
+        //    List<char> operatorsFromInput = new List<char>(); //lista z wszystkimi operatorami
+        //    List<double> numbersFromInput = new List<double>(); //lista z wszystkimi liczbami
+
+        //    //wyszukiwanie wszystkich operatorow w stringu wejsciowym
+        //    //i dodanie ich do listy
+        //    FindOperators(ref operatorsFromInput, Text);
+
+        //    //wyszukiwanie wszystkich liczb w stringu wejsciowym
+        //    //i dodanie ich do listy
+        //    FindNumbers(ref numbersFromInput, Text);
+
+        //    return ValueOfEntireOperation(ref numbersFromInput, ref operatorsFromInput);
+        //}
+
+        private void MakeListToSimplerCalculation(List<char> lChar, List<double> LDouble, ref List<double> toReturn)
+        {
+            int count = 0;
+            double tempD = 0d;
+
+            foreach (char c in lChar)
+            {
+                if (c == '*' || c == '/')
+                {
+                    tempD = ValueOfComponentOperation(c, LDouble[count], LDouble[count + 1]);
+                    toReturn.Add(tempD);
+                }
+                else
+                {
+                    if (count < (lChar.Count - 1) && (lChar[count + 1] == '*' || lChar[count + 1] == '/') && count != 0)
+                    {
+                        count++;
+                        continue;
+                    }
+                    else
+                    {
+                        int modifier = 0;
+                        if (count != 0)
+                            modifier = 1;
+
+                        toReturn.Add(LDouble[count + modifier]);
+                        count++;
+                        continue;
+                    }
+                }
+                count++;
+            }
+            RemoveCountedOperations(ref lChar);
+        }
+
         public double CalculationOfOperation()
         {
             List<char> operatorsFromInput = new List<char>(); //lista z wszystkimi operatorami
             List<double> numbersFromInput = new List<double>(); //lista z wszystkimi liczbami
+            List<double> countedDoubles = new List<double>();
 
             FindOperators(ref operatorsFromInput, Text);
-
             FindNumbers(ref numbersFromInput, Text);
+            MakeListToSimplerCalculation(operatorsFromInput, numbersFromInput, ref countedDoubles);
+            ConvertNumbersToOppositeInList(ref countedDoubles, ref operatorsFromInput);
 
-            if (operatorsFromInput.Count == 0)
-                return numbersFromInput[0];
-            else return ValueOfEntireOperation(ref numbersFromInput, ref operatorsFromInput);
+            return countedDoubles.Sum();
+        }
+
+        public double Dupa()
+        {
+            return CalculationOfOperation();
         }
     }
 }

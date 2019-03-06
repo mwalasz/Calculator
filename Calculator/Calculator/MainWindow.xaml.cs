@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-
 namespace WpfApp1
 {
     /// <summary>
@@ -22,7 +20,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int NUMBER_OF_COMPONENTS = 3;
+        private const int NUMBER_OF_COMPONENTS = 10; //naprawic walidacje
         private bool numberEntered = false;
 
         public MainWindow()
