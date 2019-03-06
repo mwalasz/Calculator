@@ -128,24 +128,6 @@ namespace WpfApp1
             }
         }
 
-        //dla dwoch lub trzech zmiennych
-
-        //public double CalculationOfOperation()
-        //{
-        //    List<char> operatorsFromInput = new List<char>(); //lista z wszystkimi operatorami
-        //    List<double> numbersFromInput = new List<double>(); //lista z wszystkimi liczbami
-
-        //    //wyszukiwanie wszystkich operatorow w stringu wejsciowym
-        //    //i dodanie ich do listy
-        //    FindOperators(ref operatorsFromInput, Text);
-
-        //    //wyszukiwanie wszystkich liczb w stringu wejsciowym
-        //    //i dodanie ich do listy
-        //    FindNumbers(ref numbersFromInput, Text);
-
-        //    return ValueOfEntireOperation(ref numbersFromInput, ref operatorsFromInput);
-        //}
-
         private void MakeListToSimplerCalculation(List<char> lChar, List<double> LDouble, ref List<double> toReturn)
         {
             int count = 0;
@@ -193,11 +175,6 @@ namespace WpfApp1
             ConvertNumbersToOppositeInList(ref countedDoubles, ref operatorsFromInput);
 
             return countedDoubles.Sum();
-        }
-
-        public double Dupa()
-        {
-            return CalculationOfOperation();
         }
     }
 }
