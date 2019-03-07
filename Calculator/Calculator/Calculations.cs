@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    public class Calculations
+    public class Calculations : MainWindow
     {
         private string Text { set; get; }
 
@@ -65,7 +65,6 @@ namespace WpfApp1
                     }
                 }
             }
-
             return output;
         }
 
